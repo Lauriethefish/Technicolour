@@ -1,7 +1,7 @@
 #include "TechnicolourController.hpp"
 #include <cmath>
 
-Sombrero::FastColor TechnicolourController::getLerpedFromVector(std::vector<Sombrero::FastColor> colours, float time) {
+Sombrero::FastColor TechnicolourController::getLerpedFromVector(const std::vector<Sombrero::FastColor>& colours, float time) {
     float tm = fmod(time, colours.size());
     int t0 = floor(tm);
     int t1 = ceil(tm);
@@ -70,7 +70,7 @@ Sombrero::FastColor TechnicolourController::getColdTechnicolour(float time, Tech
     return getPalettedTechnicolour(time, transition, coldPalette);
 }
 
-Sombrero::FastColor TechnicolourController::getRandomFromVector(std::vector<Sombrero::FastColor> colours) {
+Sombrero::FastColor TechnicolourController::getRandomFromVector(const std::vector<Sombrero::FastColor>& colours) {
     return TechnicolourController::getLerpedFromVector(colours, TechnicolourController::randFloat());
 }
 
