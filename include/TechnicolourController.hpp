@@ -17,5 +17,7 @@ public:
     static Sombrero::FastColor getColdTechnicolour(float time, TechnicolourTransition transition);
     static Sombrero::FastColor getRandomFromVector(const std::vector<Sombrero::FastColor>& colours);
 
-    static float randFloat();
+    static inline float randFloat() {
+        return ((float) rand() / (float) RAND_MAX);
+    }
 };

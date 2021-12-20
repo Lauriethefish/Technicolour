@@ -73,7 +73,3 @@ Sombrero::FastColor TechnicolourController::getColdTechnicolour(float time, Tech
 Sombrero::FastColor TechnicolourController::getRandomFromVector(const std::vector<Sombrero::FastColor>& colours) {
     return TechnicolourController::getLerpedFromVector(colours, TechnicolourController::randFloat());
 }
-
-float TechnicolourController::randFloat() {
-    return ((float) rand() / (float) RAND_MAX);
-}
