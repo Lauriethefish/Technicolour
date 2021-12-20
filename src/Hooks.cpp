@@ -38,7 +38,7 @@ std::unordered_map<int, int>& getLatestLightEventDataValues() {
     return latestLightEventDataValues;
 }
 
-void setGradientColours(Sombrero::FastColor colorLeft, Sombrero::FastColor colorRight) {
+void setGradientColours(const Sombrero::FastColor& colorLeft, const Sombrero::FastColor& colorRight) {
     if(!currentBloomColours) {
         return;
     }

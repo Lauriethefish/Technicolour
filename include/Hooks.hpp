@@ -5,7 +5,7 @@
 std::unordered_map<int, int>& getLatestLightEventDataValues();
 
 // Sets the current gradient background colour
-void setGradientColours(Sombrero::FastColor colorLeft, Sombrero::FastColor colorRight);
+void setGradientColours(const Sombrero::FastColor& colorLeft, const Sombrero::FastColor& colorRight);
 
 // Installs all technicolour hooks
 void installHooks();
