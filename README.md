@@ -1,6 +1,6 @@
 # Technicolor
 
-Cool rainbow stuff
+Yes, with a U.
 
 ## Credits
 
