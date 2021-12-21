@@ -5,7 +5,7 @@ Sombrero::FastColor TechnicolourController::getLerpedFromVector(const std::vecto
     float tm = fmod(time, colours.size());
     int t0 = floor(tm);
     int t1 = ceil(tm);
-    if(t1 > colours.size()) {
+    if(t1 >= colours.size()) {
         t1 = 0;
     }
 
