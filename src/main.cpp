@@ -50,13 +50,14 @@ extern "C" void setup(ModInfo& info) {
         getRawConfig().Write();
     }
 
-    TechnicolourConfig::updateEnabled(getConfig().getEnabled());
-
     getLogger().info("Completed setup!");
 }
 
 // Called later on in the game loading - a good time to install function hooks
 extern "C" void load() {
+    getLogger().info("Updating force enable chroma");
+    TechnicolourConfig::updateEnabled(getConfig().getEnabled());
+
     il2cpp_functions::Init();
 
     custom_types::Register::AutoRegister();
