@@ -144,6 +144,10 @@ MAKE_HOOK_MATCH(LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeat
 
 MAKE_HOOK_MATCH(BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start, &BloomPrePassBackgroundColorsGradientFromColorSchemeColors::Start, void, BloomPrePassBackgroundColorsGradientFromColorSchemeColors* self) {
     BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start(self);
+    if(getConfig().lightsStyle == TechnicolourStyle::OFF) {
+        return;
+    }
+    
     if (getConfig().disableGradientBackground)
     {
         BloomPrePassBackgroundColorsGradient* gradient = currentBloomColours->bloomPrePassBackgroundColorsGradient;
