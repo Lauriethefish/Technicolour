@@ -18,6 +18,11 @@
 #include "GlobalNamespace/BloomPrePassBackgroundColorsGradientFromColorSchemeColors.hpp"
 #include "GlobalNamespace/BloomPrePassBackgroundColorsGradient.hpp"
 #include "GlobalNamespace/BloomPrePassBackgroundColorsGradient_Element.hpp"
+#include "GlobalNamespace/ParticleSystemEventEffect.hpp"
+#include "UnityEngine/ParticleSystem.hpp"
+#include "UnityEngine/ParticleSystem_MainModule.hpp"
+#include "UnityEngine/ParticleSystem_MinMaxGradient.hpp"
+#include "UnityEngine/Color32.hpp"
 using namespace GlobalNamespace;
 
 #include "UnityEngine/Color.hpp"
@@ -160,6 +165,37 @@ MAKE_HOOK_MATCH(BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start,
     }
 }
 
+uint8_t convertFloatColor(float color) {
+    return static_cast<uint8_t>(color * 255);
+}
+
+MAKE_HOOK_MATCH(ParticleSystemEventEffect_HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger, &ParticleSystemEventEffect::HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger, void, ParticleSystemEventEffect* self, BeatmapEventData* beatmapEventData) {
+    if (getConfig().getEnabled() && getConfig().lightsStyle != TechnicolourStyle::OFF && getConfig().lightsStyle != TechnicolourStyle::GRADIENT && beatmapEventData->type == self->colorEvent && beatmapEventData->value > 0 && beatmapEventData->value <= 7)    {
+
+        if (getConfig().lightsGrouping == TechnicolourLightsGrouping::ISOLATED &&
+                    TechnicolourController::randFloat() < getConfig().lightsFrequency)
+        {
+            Array<UnityEngine::ParticleSystem::Particle>* particles = self->particles;
+            self->mainModule.set_startColor(TechnicolourController::getTechnicolour(beatmapEventData->value > 3, beatmapEventData->time, getConfig().lightsStyle));
+            self->particleSystem->GetParticles(particles, particles->Length());
+            for (int i = 0; i < self->particleSystem->get_particleCount(); i++)
+            {
+                Sombrero::FastColor color = TechnicolourController::getTechnicolour(beatmapEventData->value > 3, beatmapEventData->time + particles->values[i].m_RandomSeed, getConfig().lightsStyle);
+                
+
+                particles->values[i].m_StartColor = {convertFloatColor(color.r), convertFloatColor(color.g), convertFloatColor(color.b), convertFloatColor(color.a)};
+            }
+
+            self->particleSystem->SetParticles(particles, self->particleSystem->get_particleCount());
+
+            // Deliberately not calling orig
+            return;
+        }
+
+    }
+    ParticleSystemEventEffect_HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger(self, beatmapEventData);
+}
+
 void installHooks() {
     getLogger().info("Installing hooks...");
     INSTALL_HOOK(getLogger(), BaseNoteVisuals_HandleNoteControllerDidInit);
@@ -167,5 +203,6 @@ void installHooks() {
     INSTALL_HOOK(getLogger(), LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger);
     INSTALL_HOOK(getLogger(), BeatmapObjectCallbackController_Start);
     INSTALL_HOOK(getLogger(), BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start);
+    INSTALL_HOOK(getLogger(), ParticleSystemEventEffect_HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger);
     getLogger().info("Installed all hooks!");
 }
