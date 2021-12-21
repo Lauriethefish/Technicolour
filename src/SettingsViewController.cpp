@@ -25,16 +25,17 @@ DEFINE_TYPE(Technicolour, SettingsViewController);
     values, \
     [](std::string_view newValue) { \
         configProperty = parser(newValue); \
+        saveConfig(); \
     } \
 ); BeatSaberUI::AddHoverHint(dropDown->get_gameObject(), hoverHint); } \
+
+#define CREATE_STYLE_DROPDOWN(parentTransform, configProperty, text, hoverHint) CREATE_DROPDOWN(parentTransform, configProperty, TechnicolourConfig::getPossibleStyleValues(), TechnicolourConfig::loadStyle, TechnicolourConfig::saveStyle, text, hoverHint);
 
 std::string floatToString(float x) {
     std::stringstream stream;
     stream << std::fixed << std::setprecision(2) << x;
     return stream.str();
 }
-
-#define CREATE_STYLE_DROPDOWN(parentTransform, configProperty, text, hoverHint) CREATE_DROPDOWN(parentTransform, configProperty, TechnicolourConfig::getPossibleStyleValues(), TechnicolourConfig::loadStyle, TechnicolourConfig::saveStyle, text, hoverHint);
 
 void openStylesModal(UnityEngine::RectTransform* parentTransform) {
     HMUI::ModalView* stylesModal = BeatSaberUI::CreateModal(parentTransform, {75.0f, 70.0f}, {0.0f, 15.0f}, [](HMUI::ModalView* modalView){
@@ -83,16 +84,19 @@ void SettingsViewController::DidActivate(bool firstActivation) {
 
     Toggle* mainToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Enable Technicolour", getConfig().getEnabled(), [](bool newValue){
         getConfig().setEnabled(newValue);
+        saveConfig();
     });
     BeatSaberUI::AddHoverHint(mainToggle->get_gameObject(), "Global toggle, enables/disables the entire mod");
 
     Toggle* desyncToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Desync Left/Right", getConfig().desync, [](bool newValue){
         getConfig().desync = newValue;
+        saveConfig();
     });
     BeatSaberUI::AddHoverHint(desyncToggle->get_gameObject(), "If true, technicolor styles that shift between colors (Gradient) will desync left/right colors.");
 
     Toggle* bgToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Disable gradient background", getConfig().disableGradientBackground, [](bool newValue) {
         getConfig().disableGradientBackground = newValue;
+        saveConfig();
     });
     BeatSaberUI::AddHoverHint(desyncToggle->get_gameObject(), "Disables the incredibly ugly gradient background.");
 
@@ -104,6 +108,7 @@ void SettingsViewController::DidActivate(bool firstActivation) {
 
     HMUI::SimpleTextDropdown* frequencySlider = BeatSaberUI::CreateDropdown(mainLayout->get_rectTransform(), to_utf16("Lights Frequency"), floatToString(getConfig().lightsFrequency), choices, [](std::string_view newValue) {
         getConfig().lightsFrequency = std::stof(std::string(newValue));
+        saveConfig();
     });
     BeatSaberUI::AddHoverHint(frequencySlider->get_gameObject(), "The higher the frequency, the more color changes. This also controls how quickly the Gradient style shifts.  10%% is default.");
 
