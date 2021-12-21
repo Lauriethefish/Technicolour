@@ -33,6 +33,14 @@ TechnicolourConfig& getConfig() {
     return config;
 }
 
+void saveConfig() {
+    getRawConfig().config.Clear();
+    getRawConfig().config.SetObject();
+    getConfig().save(getRawConfig().config);
+    getRawConfig().Write();
+    getLogger().info("Config saved");
+}
+
 
 // Called at the early stages of game loading
 extern "C" void setup(ModInfo& info) {
@@ -46,8 +54,7 @@ extern "C" void setup(ModInfo& info) {
         getConfig().load(getRawConfig().config);
     }   else    {
         getLogger().info("Saving default config file");
-        getConfig().save(getRawConfig().config);
-        getRawConfig().Write();
+        saveConfig();
     }
 
     getLogger().info("Completed setup!");
