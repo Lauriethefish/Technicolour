@@ -197,6 +197,9 @@ MAKE_HOOK_MATCH(ParticleSystemEventEffect_HandleBeatmapObjectCallbackControllerB
 }
 
 void installHooks() {
+    getLogger().info("Loading chroma");
+    Modloader::requireMod("Chroma");
+
     getLogger().info("Installing hooks...");
     INSTALL_HOOK(getLogger(), BaseNoteVisuals_HandleNoteControllerDidInit);
     INSTALL_HOOK(getLogger(), ObstacleController_Init);
