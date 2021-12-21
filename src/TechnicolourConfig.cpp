@@ -83,6 +83,7 @@ void TechnicolourConfig::load(ConfigDocument& document) {
 
     desync = document["desync"].GetBool();
     disableGradientBackground = document["disableGradientBackground"].GetBool();
+    lightsFrequency = document["lightsFrequency"].GetFloat();
 }
 
 void TechnicolourConfig::save(ConfigDocument& document) {
@@ -99,6 +100,7 @@ void TechnicolourConfig::save(ConfigDocument& document) {
 
     document.AddMember("desync", desync, alloc);
     document.AddMember("disableGradientBackground", disableGradientBackground, alloc);
+    document.AddMember("lightsFrequency", lightsFrequency, alloc);
 }
 
 bool TechnicolourConfig::getEnabled() {
