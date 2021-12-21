@@ -62,8 +62,8 @@ void setGradientColours(const Sombrero::FastColor& colorLeft, const Sombrero::Fa
 MAKE_HOOK_MATCH(BaseNoteVisuals_HandleNoteControllerDidInit, &BaseNoteVisuals::HandleNoteControllerDidInit, void, BaseNoteVisuals* self, NoteControllerBase* noteController) {
     BaseNoteVisuals_HandleNoteControllerDidInit(self, noteController);
 
-    // Return if TRUE_RANDOM notes are disabled
-    if(!(getConfig().blocksStyle != TechnicolourStyle::GRADIENT && getConfig().blocksStyle != TechnicolourStyle::OFF)) {
+    // Return if TRUE_RANDOM notes are disabled or if technicolour is disabled
+    if(!getConfig().getEnabled() || !(getConfig().blocksStyle != TechnicolourStyle::GRADIENT && getConfig().blocksStyle != TechnicolourStyle::OFF)) {
         return;
     }
 
@@ -80,8 +80,8 @@ MAKE_HOOK_MATCH(BaseNoteVisuals_HandleNoteControllerDidInit, &BaseNoteVisuals::H
 
 MAKE_HOOK_MATCH(ObstacleController_Init, &ObstacleController::Init, void, ObstacleController* self, ObstacleData* obstacleData, float worldRotation, UnityEngine::Vector3 startPos, UnityEngine::Vector3 midPos, UnityEngine::Vector3 endPos, float move1Duration, float move2Duration, float singleLineWidth, float height) {
     ObstacleController_Init(self, obstacleData, worldRotation, startPos, midPos, endPos, move1Duration, move2Duration, singleLineWidth, height);
-    // Return if TRUE_RANDOM walls are disabled
-    if(!(getConfig().wallsStyle != TechnicolourStyle::GRADIENT && getConfig().wallsStyle != TechnicolourStyle::OFF)) {
+    // Return if TRUE_RANDOM walls are disabled or techincolour is disabled
+    if(!getConfig().getEnabled() || !(getConfig().wallsStyle != TechnicolourStyle::GRADIENT && getConfig().wallsStyle != TechnicolourStyle::OFF)) {
         return;
     }
 
@@ -149,7 +149,7 @@ MAKE_HOOK_MATCH(LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeat
 
 MAKE_HOOK_MATCH(BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start, &BloomPrePassBackgroundColorsGradientFromColorSchemeColors::Start, void, BloomPrePassBackgroundColorsGradientFromColorSchemeColors* self) {
     BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start(self);
-    if(getConfig().lightsStyle == TechnicolourStyle::OFF) {
+    if(!getConfig().getEnabled() || getConfig().lightsStyle == TechnicolourStyle::OFF) {
         return;
     }
     
