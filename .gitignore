@@ -43,7 +43,11 @@ out/
 [Oo]bjs/
 ndkpath.txt
 *.zip
-*.txt
 extern/
 Android.mk.backup
 qpm.shared.json
+build/
+cmake-build-debug/
+.idea/
+extern.cmake
+qpm_defines.cmake

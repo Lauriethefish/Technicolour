@@ -6,7 +6,9 @@
     "id": "technicolor",
     "version": "0.1.0",
     "url": null,
-    "additionalData": {}
+    "additionalData": {
+      "overrideSoName": "libtechnicolour.so"
+    }
   },
   "dependencies": [
     {
@@ -35,6 +37,11 @@
     },
     {
       "id": "chroma",
+      "versionRange": "*",
+      "additionalData": {}
+    },
+    {
+      "id": "modloader",
       "versionRange": "*",
       "additionalData": {}
     }
