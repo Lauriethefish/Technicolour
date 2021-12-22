@@ -26,7 +26,7 @@ Sombrero::FastColor TechnicolourController::getTechnicolour(bool warm, float tim
     }
 }
 
-Sombrero::FastColor getPalettedTechnicolour(float time, TechnicolourTransition transition, std::vector<Sombrero::FastColor> palette) {
+Sombrero::FastColor getPalettedTechnicolour(float time, TechnicolourTransition transition, std::vector<Sombrero::FastColor>& palette) {
     switch (transition)
     {
         case TechnicolourTransition::FLAT:
