@@ -15,12 +15,12 @@ public:
     static void updateEnabled(bool enabled);
 
 
-    TechnicolourStyle lightsStyle = TechnicolourStyle::PURE_RANDOM;
+    TechnicolourStyle lightsStyle = TechnicolourStyle::GRADIENT;
     TechnicolourLightsGrouping lightsGrouping = TechnicolourLightsGrouping::ISOLATED;
     float lightsFrequency = 0.1f;
 
-    TechnicolourStyle sabersStyle = TechnicolourStyle::GRADIENT;
-    TechnicolourStyle blocksStyle = TechnicolourStyle::GRADIENT;
+    TechnicolourStyle sabersStyle = TechnicolourStyle::OFF;
+    TechnicolourStyle blocksStyle = TechnicolourStyle::OFF;
     TechnicolourStyle wallsStyle = TechnicolourStyle::GRADIENT;
     TechnicolourStyle bombsStyle = TechnicolourStyle::PURE_RANDOM;
 
