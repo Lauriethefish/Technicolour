@@ -59,19 +59,52 @@ void setGradientColours(const Sombrero::FastColor& colorLeft, const Sombrero::Fa
     }
 }
 
+MAKE_HOOK_MATCH(
+    BombNoteController_Init,
+    &BombNoteController::Init,
+    void,
+    BombNoteController* self,
+    NoteData* noteData,
+    float worldRotation,
+    UnityEngine::Vector3 moveStartPos,
+    UnityEngine::Vector3 moveEndPos,
+    UnityEngine::Vector3 jumpEndPos,
+    float moveDuration,
+    float jumpDuration,
+    float jumpGravity
+) {
+    BombNoteController_Init(self, noteData, worldRotation, moveStartPos, moveEndPos, jumpEndPos, moveDuration, jumpDuration, jumpGravity);
+
+    // Return if TRUE_RANDOM bombs are disabled or if technicolour is disabled
+    if(!getConfig().getEnabled() || !(getConfig().bombsStyle != TechnicolourStyle::GRADIENT && getConfig().bombsStyle != TechnicolourStyle::OFF)) {
+        return;
+    }
+
+    Sombrero::FastColor color = TechnicolourController::getTechnicolour(true, noteData->time + self->GetInstanceID(), getConfig().bombsStyle);
+    Chroma::BombAPI::setBombColorSafe(self, color);
+}
+
 MAKE_HOOK_MATCH(BaseNoteVisuals_HandleNoteControllerDidInit, &BaseNoteVisuals::HandleNoteControllerDidInit, void, BaseNoteVisuals* self, NoteControllerBase* noteController) {
     BaseNoteVisuals_HandleNoteControllerDidInit(self, noteController);
 
-    // Return if TRUE_RANDOM notes are disabled or if technicolour is disabled
-    if(!getConfig().getEnabled() || !(getConfig().blocksStyle != TechnicolourStyle::GRADIENT && getConfig().blocksStyle != TechnicolourStyle::OFF)) {
+    if(!getConfig().getEnabled()) {
         return;
     }
 
     NoteData* noteData = noteController->get_noteData();
+    if(noteData->colorType == ColorType::None) {
+        return;
+    }
+    // Return if TRUE_RANDOM notes are disabled or if technicolour is disabled
+    if(!(getConfig().blocksStyle != TechnicolourStyle::GRADIENT && getConfig().blocksStyle != TechnicolourStyle::OFF)) {
+        return;
+    }
 
     Sombrero::FastColor color = TechnicolourController::getTechnicolour(noteData->colorType == ColorType::ColorA, noteData->time + noteController->GetInstanceID(), getConfig().blocksStyle);
 
     if(noteData->colorType == ColorType::None) {
+    
+
         Chroma::BombAPI::setBombColorSafe(reinterpret_cast<BombNoteController*>(self->noteController), color);
     }   else    {
         Chroma::NoteAPI::setNoteColorSafe(self->noteController, color);
@@ -121,7 +154,7 @@ MAKE_HOOK_MATCH(LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeat
 
             for (ILightWithId* light : lights.value())
             {
-                Sombrero::FastColor color = TechnicolourController::getTechnicolour(warm, beatmapEventData->time + reinterpret_cast<System::Object*>(light)->GetHashCode(), getConfig().lightsStyle);
+                Sombrero::FastColor color = TechnicolourController::getTechnicolour(warm, beatmapEventData->time + pointerToSeed(light), getConfig().lightsStyle);
                 light->ColorWasSet(color);
             }
 
@@ -203,6 +236,7 @@ void installHooks() {
     getLogger().info("Installing hooks...");
     INSTALL_HOOK(getLogger(), BaseNoteVisuals_HandleNoteControllerDidInit);
     INSTALL_HOOK(getLogger(), ObstacleController_Init);
+    INSTALL_HOOK(getLogger(), BombNoteController_Init);
     INSTALL_HOOK(getLogger(), LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger);
     INSTALL_HOOK(getLogger(), BeatmapObjectCallbackController_Start);
     INSTALL_HOOK(getLogger(), BloomPrePassBackgroundColorsGradientFromColorSchemeColors_Start);
