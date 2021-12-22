@@ -124,7 +124,7 @@ void GradientController::rainbowLights() {
             int latestValue = getLatestLightEventDataValues()[lightSwitchEventEffect->lightsID];
             bool leftColor = isColor0EventDataValue(latestValue);
             for(GlobalNamespace::ILightWithId* light : lights.value()) {
-                float seed = abs(reinterpret_cast<System::Object*>(light)->GetHashCode()) % 1000;
+                float seed = abs(pointerToSeed(light)) % 1000;
                 seed *= 0.001f;
                 Sombrero::FastColor colorLeft = Sombrero::FastColor::HSVToRGB(fmod((currentTime * getTimeMult()) + mismatchSpeedOffset + seed, 1.0f), 1.0f, 1.0f);
                 Sombrero::FastColor colorRight = Sombrero::FastColor::HSVToRGB(fmod((currentTime * getTimeMult()) + seed, 1.0f), 1.0f, 1.0f);

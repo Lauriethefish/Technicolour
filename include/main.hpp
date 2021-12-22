@@ -21,5 +21,7 @@ TechnicolourConfig& getConfig();
 
 Logger& getLogger();
 
+int pointerToSeed(void* ptr);
+
 // Returns true if this BeatmapEventData value corresponds to color 0
 bool isColor0EventDataValue(int beatmapEventValue);

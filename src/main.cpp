@@ -14,6 +14,11 @@ bool isColor0EventDataValue(int beatmapEventValue)
 	return true;
 }
 
+int pointerToSeed(void* ptr) {
+    uintptr_t intValue = (uintptr_t) ptr;
+    return (intValue * 200771) + (intValue % 300823);
+}
+
 static ModInfo modInfo; // Stores the ID and version of our mod, and is sent to the modloader upon startup
 
 // Loads the config from disk using our modInfo, then returns it for use
