@@ -20,14 +20,11 @@
 #include "GlobalNamespace/BloomPrePassBackgroundColorsGradient_Element.hpp"
 #include "GlobalNamespace/ParticleSystemEventEffect.hpp"
 #include "UnityEngine/ParticleSystem.hpp"
-#include "UnityEngine/ParticleSystem_MainModule.hpp"
 #include "UnityEngine/ParticleSystem_MinMaxGradient.hpp"
-#include "UnityEngine/Color32.hpp"
 using namespace GlobalNamespace;
 
 #include "UnityEngine/Color.hpp"
 #include "UnityEngine/GameObject.hpp"
-#include "UnityEngine/Resources.hpp"
 #include "System/Object.hpp"
 
 #include "chroma/shared/NoteAPI.hpp"

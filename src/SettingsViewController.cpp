@@ -6,12 +6,10 @@ using namespace QuestUI;
 
 #include "UnityEngine/UI/VerticalLayoutGroup.hpp"
 using namespace UnityEngine::UI;
-#include "UnityEngine/MonoBehaviour.hpp"
 #include "UnityEngine/RectOffset.hpp"
 
-#include "questui/shared/CustomTypes/Components/Backgroundable.hpp"
-
 #include "HMUI/Touchable.hpp"
+#include "UnityEngine/ParticleSystem.hpp"
 
 #include <iomanip>
 #include <sstream>
