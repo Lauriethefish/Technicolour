@@ -7,6 +7,7 @@ using namespace QuestUI;
 #include "UnityEngine/UI/VerticalLayoutGroup.hpp"
 using namespace UnityEngine::UI;
 #include "UnityEngine/MonoBehaviour.hpp"
+#include "UnityEngine/RectOffset.hpp"
 
 #include "questui/shared/CustomTypes/Components/Backgroundable.hpp"
 
@@ -43,20 +44,21 @@ void openStylesModal(UnityEngine::RectTransform* parentTransform) {
     });
 
     VerticalLayoutGroup* stylesLayout = BeatSaberUI::CreateVerticalLayoutGroup(stylesModal->get_transform());
-    stylesLayout->set_spacing(2.0f);
-    stylesLayout->GetComponent<LayoutElement*>()->set_preferredWidth(65.0f);
+    stylesLayout->set_padding(UnityEngine::RectOffset::New_ctor(3, 3, 3, 3));
+    stylesLayout->GetComponent<LayoutElement*>()->set_preferredWidth(70.0f);
 
     UnityEngine::Transform* stylesTransform = stylesLayout->get_rectTransform();
 
     TMPro::TextMeshProUGUI* titleText = BeatSaberUI::CreateText(stylesTransform, "Technicolour Styles");
     titleText->set_alignment(TMPro::TextAlignmentOptions::Center);
-    titleText->set_fontSize(4.0f);
+    titleText->set_fontSize(6.0f);
+    titleText->set_margin(UnityEngine::Vector4 {0.0f, 1.0f, 0.0f, 0.0f});
 
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().lightsStyle, "Technicolour Lights", "Technicolor style of the lights.");
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().wallsStyle, "Technicolor Walls", "Technicolour style of the walls.");
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().bombsStyle, "Technicolour Bombs", "Technicolor style of the bombs.");
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().blocksStyle, "Technicolour Notes", "Technicolor style of the notes.");
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().sabersStyle, "Technicolour Sabers", "Technicolor style of the sabers.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().lightsStyle, "Rainbow Lights", "Technicolor style of the lights.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().wallsStyle, "Rainbow Walls", "Technicolour style of the walls.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().bombsStyle, "Rainbow Bombs", "Technicolor style of the bombs.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().blocksStyle, "Rainbow Notes", "Technicolor style of the notes.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().sabersStyle, "Rainbow Sabers", "Technicolor style of the sabers.");
     BeatSaberUI::CreateText(stylesTransform, "");
     BeatSaberUI::CreateText(stylesTransform, "");
     stylesModal->Show(true, false, nullptr);
@@ -80,7 +82,8 @@ void SettingsViewController::DidActivate(bool firstActivation) {
     mainLayout->set_childForceExpandHeight(false);
     mainLayout->GetComponent<LayoutElement*>()->set_preferredWidth(65.0f);
     mainLayout->GetComponent<LayoutElement*>()->set_preferredHeight(30.0f);
-    mainLayout->set_spacing(4.0f);
+    mainLayout->set_padding(UnityEngine::RectOffset::New_ctor(3, 3, 3, 3));
+    //mainLayout->set_spacing(0.5f);
 
     Toggle* mainToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Enable Technicolour", getConfig().getEnabled(), [](bool newValue){
         getConfig().setEnabled(newValue);
@@ -92,17 +95,17 @@ void SettingsViewController::DidActivate(bool firstActivation) {
         getConfig().desync = newValue;
         saveConfig();
     });
-    BeatSaberUI::AddHoverHint(desyncToggle->get_gameObject(), "If true, technicolor styles that shift between colors (Gradient) will desync left/right colors.");
+    BeatSaberUI::AddHoverHint(desyncToggle->get_gameObject(), "If true, technicolor styles that shift between colors (gradient mode) will desync left/right colors.");
 
     Toggle* bgToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Disable gradient background", getConfig().disableGradientBackground, [](bool newValue) {
         getConfig().disableGradientBackground = newValue;
         saveConfig();
     });
-    BeatSaberUI::AddHoverHint(desyncToggle->get_gameObject(), "Disables the incredibly ugly gradient background.");
+    BeatSaberUI::AddHoverHint(bgToggle->get_gameObject(), "Disables the incredibly ugly gradient background.");
 
 
     std::vector<std::string> choices;
-    for(float x = 0.05f; x <= 1.00f; x += 0.05f) {
+    for(float x = 0.05f; x <= 1.02f; x += 0.05f) {
         choices.push_back(floatToString(x));
     }
 
@@ -110,7 +113,7 @@ void SettingsViewController::DidActivate(bool firstActivation) {
         getConfig().lightsFrequency = std::stof(std::string(newValue));
         saveConfig();
     });
-    BeatSaberUI::AddHoverHint(frequencySlider->get_gameObject(), "The higher the frequency, the more color changes. This also controls how quickly the Gradient style shifts.  10%% is default.");
+    BeatSaberUI::AddHoverHint(frequencySlider->get_gameObject(), "The higher the frequency, the more color changes. This also controls how quickly the Gradient style shifts.  10% is default.");
 
     CREATE_DROPDOWN(mainLayout->get_rectTransform(), getConfig().lightsGrouping, TechnicolourConfig::getPossibleGroupingValues(), TechnicolourConfig::loadGrouping, TechnicolourConfig::saveLightsGrouping, "Lights Grouping", "Set to isolated for more colours, standard for better performance");
 
@@ -120,7 +123,7 @@ void SettingsViewController::DidActivate(bool firstActivation) {
         openStylesModal(mainLayout->get_rectTransform());
     });
 
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 8; i++) {
         TMPro::TextMeshProUGUI* bodgeText = BeatSaberUI::CreateText(mainLayout->get_transform(), " ");
         UnityEngine::Transform* bodgeTransform = bodgeText->get_transform();
         position = bodgeTransform->get_position();
