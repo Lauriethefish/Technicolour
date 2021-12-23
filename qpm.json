@@ -37,12 +37,12 @@
     },
     {
       "id": "chroma",
-      "versionRange": "*",
+      "versionRange": "^2.5.7",
       "additionalData": {}
     },
     {
       "id": "modloader",
-      "versionRange": "*",
+      "versionRange": "^1.2.3",
       "additionalData": {}
     }
   ],
