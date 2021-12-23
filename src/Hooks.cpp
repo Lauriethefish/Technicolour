@@ -168,7 +168,7 @@ MAKE_HOOK_MATCH(LightSwitchEventEffect_HandleBeatmapObjectCallbackControllerBeat
 
                 case TechnicolourLightsGrouping::STANDARD:
                 default:
-                    Chroma::LightAPI::setAllLightingColorsSafe(false, Chroma::LightAPI::LSEData{color, color, color, color});
+                    Chroma::LightAPI::setAllLightingColorsSafe(true, Chroma::LightAPI::LSEData{color, color, color, color});
                     break;
             }
         }
