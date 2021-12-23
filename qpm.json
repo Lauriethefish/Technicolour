@@ -38,7 +38,9 @@
     {
       "id": "chroma",
       "versionRange": "^2.5.7",
-      "additionalData": {}
+      "additionalData": {
+        "includeQmod": true
+      }
     },
     {
       "id": "modloader",
