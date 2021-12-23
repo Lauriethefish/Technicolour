@@ -82,6 +82,8 @@ jobs:
         pattern="lib${module_id}*.so"
         files=( $pattern )
         echo ::set-output name=NAME::"${files[0]}"
+    - name: Put QPM on PATH
+      run: echo "./QPM" >> $GITHUB_PATH
     - name: Create QMOD
       run: |
         pwsh -Command ./buildQMOD.ps1 ${{env.qmodName}}
