@@ -9,7 +9,13 @@
   "packageVersion": "1.17.1",
   "description": "Yes, it's colour with a U",
   "coverImage": "cover.jpg",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "version": "^2.5.7",
+      "id": "chroma",
+      "downloadIfMissing": "https://github.com/bsq-ports/Chroma/releases/download/v2.5.7/chroma.qmod"
+    }
+  ],
   "modFiles": [],
   "libraryFiles": [],
   "fileCopies": []
