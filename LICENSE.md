@@ -1,7 +1,7 @@
 The original PC mod that this is based upon is copyright of Aeroluna and is available under the MIT License. The license can be viewed [here](https://github.com/Aeroluna/Technicolor/blob/master/LICENSE)
 
 This port is also released under the MIT License below.
-
+```
 MIT License
 
 Copyright (c) 2021 Laurie ?
@@ -23,3 +23,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
