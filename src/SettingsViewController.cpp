@@ -14,8 +14,8 @@ using namespace UnityEngine::UI;
 #include <iomanip>
 #include <sstream>
 
-using namespace Technicolour;
-DEFINE_TYPE(Technicolour, SettingsViewController);
+using namespace Technicolor;
+DEFINE_TYPE(Technicolor, SettingsViewController);
 
 #define CREATE_DROPDOWN(parentTransform, configProperty, values, parser, saver, text, hoverHint) {\
     HMUI::SimpleTextDropdown* dropDown = BeatSaberUI::CreateDropdown(parentTransform, \
@@ -28,7 +28,7 @@ DEFINE_TYPE(Technicolour, SettingsViewController);
     } \
 ); BeatSaberUI::AddHoverHint(dropDown->get_gameObject(), hoverHint); } \
 
-#define CREATE_STYLE_DROPDOWN(parentTransform, configProperty, text, hoverHint) CREATE_DROPDOWN(parentTransform, configProperty, TechnicolourConfig::getPossibleStyleValues(), TechnicolourConfig::loadStyle, TechnicolourConfig::saveStyle, text, hoverHint);
+#define CREATE_STYLE_DROPDOWN(parentTransform, configProperty, text, hoverHint) CREATE_DROPDOWN(parentTransform, configProperty, TechnicolorConfig::getPossibleStyleValues(), TechnicolorConfig::loadStyle, TechnicolorConfig::saveStyle, text, hoverHint);
 
 std::string floatToString(float x) {
     std::stringstream stream;
@@ -47,13 +47,13 @@ void openStylesModal(UnityEngine::RectTransform* parentTransform) {
 
     UnityEngine::Transform* stylesTransform = stylesLayout->get_rectTransform();
 
-    TMPro::TextMeshProUGUI* titleText = BeatSaberUI::CreateText(stylesTransform, "Technicolour Styles");
+    TMPro::TextMeshProUGUI* titleText = BeatSaberUI::CreateText(stylesTransform, "Technicolor Styles");
     titleText->set_alignment(TMPro::TextAlignmentOptions::Center);
     titleText->set_fontSize(6.0f);
     titleText->set_margin(UnityEngine::Vector4 {0.0f, 1.0f, 0.0f, 0.0f});
 
     CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().lightsStyle, "Rainbow Lights", "Technicolor style of the lights.");
-    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().wallsStyle, "Rainbow Walls", "Technicolour style of the walls.");
+    CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().wallsStyle, "Rainbow Walls", "Technicolor style of the walls.");
     CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().bombsStyle, "Rainbow Bombs", "Technicolor style of the bombs.");
     CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().blocksStyle, "Rainbow Notes", "Technicolor style of the notes.");
     CREATE_STYLE_DROPDOWN(stylesTransform, getConfig().sabersStyle, "Rainbow Sabers", "Technicolor style of the sabers.");
@@ -83,7 +83,7 @@ void SettingsViewController::DidActivate(bool firstActivation) {
     mainLayout->set_padding(UnityEngine::RectOffset::New_ctor(3, 3, 3, 3));
     //mainLayout->set_spacing(0.5f);
 
-    Toggle* mainToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Enable Technicolour", getConfig().getEnabled(), [](bool newValue){
+    Toggle* mainToggle = BeatSaberUI::CreateToggle(mainLayout->get_rectTransform(), "Enable Technicolor", getConfig().getEnabled(), [](bool newValue){
         getConfig().setEnabled(newValue);
         saveConfig();
     });
@@ -113,11 +113,11 @@ void SettingsViewController::DidActivate(bool firstActivation) {
     });
     BeatSaberUI::AddHoverHint(frequencySlider->get_gameObject(), "The higher the frequency, the more color changes. This also controls how quickly the Gradient style shifts.  10% is default.");
 
-    CREATE_DROPDOWN(mainLayout->get_rectTransform(), getConfig().lightsGrouping, TechnicolourConfig::getPossibleGroupingValues(), TechnicolourConfig::loadGrouping, TechnicolourConfig::saveLightsGrouping, "Lights Grouping", "Set to isolated for more colours, standard for better performance");
+    CREATE_DROPDOWN(mainLayout->get_rectTransform(), getConfig().lightsGrouping, TechnicolorConfig::getPossibleGroupingValues(), TechnicolorConfig::loadGrouping, TechnicolorConfig::saveLightsGrouping, "Lights Grouping", "Set to isolated for more colours, standard for better performance");
 
     VerticalLayoutGroup* buttonLayout = BeatSaberUI::CreateVerticalLayoutGroup(mainLayout->get_rectTransform());
     buttonLayout->GetComponent<LayoutElement*>()->set_preferredHeight(5.0f);
-    Button* button = BeatSaberUI::CreateUIButton(buttonLayout->get_rectTransform(), "Open Technicolour Styles!", "OkButton", [mainLayout](){
+    Button* button = BeatSaberUI::CreateUIButton(buttonLayout->get_rectTransform(), "Open Technicolor Styles!", "OkButton", [mainLayout](){
         openStylesModal(mainLayout->get_rectTransform());
     });
 
