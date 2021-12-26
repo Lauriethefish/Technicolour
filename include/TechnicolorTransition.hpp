@@ -1,6 +1,6 @@
 #pragma once
 
-enum TechnicolourTransition {
+enum TechnicolorTransition {
     FLAT,
     SMOOTH
 };
