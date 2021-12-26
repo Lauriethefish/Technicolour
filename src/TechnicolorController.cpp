@@ -1,7 +1,7 @@
-#include "TechnicolourController.hpp"
+#include "TechnicolorController.hpp"
 #include <cmath>
 
-Sombrero::FastColor TechnicolourController::getLerpedFromVector(const std::vector<Sombrero::FastColor>& colours, float time) {
+Sombrero::FastColor TechnicolorController::getLerpedFromVector(const std::vector<Sombrero::FastColor>& colours, float time) {
     float tm = fmod(time, colours.size());
     int t0 = floor(tm);
     int t1 = ceil(tm);
@@ -12,10 +12,10 @@ Sombrero::FastColor TechnicolourController::getLerpedFromVector(const std::vecto
     return Sombrero::FastColor::Lerp(colours[t0], colours[t1], fmod(tm, 1.0f));
 }
 
-Sombrero::FastColor TechnicolourController::getTechnicolour(bool warm, float time, TechnicolourStyle style, TechnicolourTransition transition) {
+Sombrero::FastColor TechnicolorController::getTechnicolour(bool warm, float time, TechnicolourStyle style, TechnicolourTransition transition) {
     switch (style)
     {
-        case TechnicolourStyle::PURE_RANDOM:
+        case TechnicolorStyle::PURE_RANDOM:
             return Sombrero::FastColor::HSVToRGB(TechnicolourController::randFloat(), 1.0f, 1.0f);
 
         case TechnicolourStyle::WARM_COLD:
@@ -26,14 +26,14 @@ Sombrero::FastColor TechnicolourController::getTechnicolour(bool warm, float tim
     }
 }
 
-Sombrero::FastColor getPalettedTechnicolour(float time, TechnicolourTransition transition, std::vector<Sombrero::FastColor>& palette) {
+Sombrero::FastColor getPalettedTechnicolor(float time, TechnicolorTransition transition, std::vector<Sombrero::FastColor>& palette) {
     switch (transition)
     {
         case TechnicolourTransition::FLAT:
             return TechnicolourController::getRandomFromVector(palette);
 
         case TechnicolourTransition::SMOOTH:
-            return TechnicolourController::getLerpedFromVector(palette, time);
+            return TechnicolorController::getLerpedFromVector(palette, time);
 
         default:
             return Sombrero::FastColor::get_white();
