@@ -10,14 +10,14 @@
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 
-#include "TechnicolourConfig.hpp"
+#include "TechnicolorConfig.hpp"
 
 // Define these functions here so that we can easily read configuration and log information from other files
 Configuration& getRawConfig();
 
 void saveConfig();
 
-TechnicolourConfig& getConfig();
+TechnicolorConfig& getConfig();
 
 Logger& getLogger();
 
