@@ -1,7 +1,7 @@
 #include "GradientControllerUpdate.hpp"
 
-DEFINE_TYPE(Technicolour, GradientControllerUpdate);
+DEFINE_TYPE(Technicolor, GradientControllerUpdate);
 
-void Technicolour::GradientControllerUpdate::Update() {
+void Technicolor::GradientControllerUpdate::Update() {
     gradientController.update();
 }
