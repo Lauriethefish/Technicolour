@@ -1,6 +1,6 @@
 #pragma once
 
-enum TechnicolourLightsGrouping {
+enum TechnicolorLightsGrouping {
     STANDARD,
     ISOLATED_GROUP,
     ISOLATED
