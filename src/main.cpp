@@ -1,5 +1,5 @@
 #include "main.hpp"
-#include "TechnicolourConfig.hpp"
+#include "TechnicolorConfig.hpp"
 #include "Hooks.hpp"
 #include "SettingsViewController.hpp"
 #include "questui/shared/QuestUI.hpp"
@@ -33,8 +33,8 @@ Logger& getLogger() {
     return *logger;
 }
 
-TechnicolourConfig& getConfig() {
-    static TechnicolourConfig config;
+TechnicolorConfig& getConfig() {
+    static TechnicolorConfig config;
     return config;
 }
 
@@ -68,7 +68,7 @@ extern "C" void setup(ModInfo& info) {
 // Called later on in the game loading - a good time to install function hooks
 extern "C" void load() {
     getLogger().info("Updating force enable chroma");
-    TechnicolourConfig::updateEnabled(getConfig().getEnabled());
+    TechnicolorConfig::updateEnabled(getConfig().getEnabled());
 
     il2cpp_functions::Init();
 
@@ -76,5 +76,5 @@ extern "C" void load() {
 
     installHooks();
 
-    QuestUI::Register::RegisterGameplaySetupMenu<Technicolour::SettingsViewController*>(modInfo, "Technicolour", QuestUI::Register::MenuType::Solo | QuestUI::Register::MenuType::Online);
+    QuestUI::Register::RegisterGameplaySetupMenu<Technicolor::SettingsViewController*>(modInfo, "Technicolor", QuestUI::Register::MenuType::Solo | QuestUI::Register::MenuType::Online);
 }
