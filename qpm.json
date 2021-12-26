@@ -2,12 +2,12 @@
   "sharedDir": "shared",
   "dependenciesDir": "extern",
   "info": {
-    "name": "Technicolour",
-    "id": "technicolour",
+    "name": "Technicolor",
+    "id": "technicolor",
     "version": "1.0.0",
     "url": null,
     "additionalData": {
-      "overrideSoName": "libtechnicolour.so"
+      "overrideSoName": "libtechnicolor.so"
     }
   },
   "dependencies": [
