@@ -1,5 +1,5 @@
 Param(
-    [String]$qmodname="Technicolour",
+    [String]$qmodname="Technicolor",
     [Parameter(Mandatory=$false)]
     [Switch]$clean
 )
