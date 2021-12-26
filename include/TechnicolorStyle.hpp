@@ -1,6 +1,6 @@
 #pragma once
 
-enum TechnicolourStyle {
+enum TechnicolurStyle {
     OFF,
     WARM_COLD,
     PURE_RANDOM,
