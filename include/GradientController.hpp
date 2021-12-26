@@ -4,7 +4,7 @@
 #include <vector>
 #include <optional>
 
-#include "TechnicolourConfig.hpp"
+#include "TechnicolorConfig.hpp"
 #include "sombrero/shared/ColorUtils.hpp"
 
 #include "GlobalNamespace/LightSwitchEventEffect.hpp"
