@@ -2,8 +2,8 @@
 #include "main.hpp"
 #include "Hooks.hpp"
 #include "UnityEngine/Time.hpp"
-#include "TechnicolourController.hpp"
-#include "TechnicolourStyle.hpp"
+#include "TechnicolorController.hpp"
+#include "TechnicolorStyle.hpp"
 
 #include "chroma/shared/LightAPI.hpp"
 #include "chroma/shared/NoteAPI.hpp"
@@ -29,11 +29,11 @@ float GradientController::getTimeGlobalMult() {
 void GradientController::initialiseGradients() {
     switch (getConfig().sabersStyle)
     {
-        case TechnicolourStyle::PURE_RANDOM:
+        case TechnicolorStyle::PURE_RANDOM:
             setupRandom();
             break;
 
-        case TechnicolourStyle::WARM_COLD:
+        case TechnicolorStyle::WARM_COLD:
             setupWarmCold();
             break;
         default:
@@ -48,44 +48,44 @@ void GradientController::update() {
     gradientLeftColor = Sombrero::FastColor::HSVToRGB(fmod(time * getTimeMult() + mismatchSpeedOffset, 1.0f), 1.0f, 1.0f);
     gradientRightColor = Sombrero::FastColor::HSVToRGB(fmod(time * getTimeMult(), 1.0f), 1.0f, 1.0f);
 
-    TechnicolourConfig& config = getConfig();
-    if (config.lightsStyle == TechnicolourStyle::GRADIENT)
+    TechnicolorConfig& config = getConfig();
+    if (config.lightsStyle == TechnicolorStyle::GRADIENT)
     {
         rainbowLights();
     }
 
-    if (config.lightsStyle != TechnicolourStyle::OFF && !config.disableGradientBackground)
+    if (config.lightsStyle != TechnicolorStyle::OFF && !config.disableGradientBackground)
     {
         rainbowGradientBackground();
     }
-    if (config.blocksStyle == TechnicolourStyle::GRADIENT)
+    if (config.blocksStyle == TechnicolorStyle::GRADIENT)
     {
         rainbowNotes();
     }
 
-    if (config.wallsStyle == TechnicolourStyle::GRADIENT)
+    if (config.wallsStyle == TechnicolorStyle::GRADIENT)
     {
         rainbowWalls();
     }
 
-    if (config.bombsStyle == TechnicolourStyle::GRADIENT)
+    if (config.bombsStyle == TechnicolorStyle::GRADIENT)
     {
         rainbowBombs();
     }
 
-    if (config.sabersStyle != TechnicolourStyle::OFF)
+    if (config.sabersStyle != TechnicolorStyle::OFF)
     {
         switch (config.sabersStyle)
         {
-            case TechnicolourStyle::GRADIENT:
+            case TechnicolorStyle::GRADIENT:
                 gradientTick();
                 break;
 
-            case TechnicolourStyle::PURE_RANDOM:
+            case TechnicolorStyle::PURE_RANDOM:
                 randomTick();
                 break;
 
-            case TechnicolourStyle::WARM_COLD:
+            case TechnicolorStyle::WARM_COLD:
                 paletteTick();
                 break;
             default:
@@ -106,7 +106,7 @@ static int lightingEventTypes[] = {
 };
 
 void GradientController::rainbowLights() {
-    if (getConfig().lightsGrouping == TechnicolourLightsGrouping::ISOLATED)
+    if (getConfig().lightsGrouping == TechnicolorLightsGrouping::ISOLATED)
     {
         if(!lightSwitchEventEffects) {
             lightSwitchEventEffects = UnityEngine::Resources::FindObjectsOfTypeAll<GlobalNamespace::LightSwitchEventEffect*>();
@@ -155,16 +155,16 @@ void GradientController::rainbowSabers() {
 }
 
 void GradientController::paletteTick() {
-    rainbowSaberColors[0] = TechnicolourController::getLerpedFromVector(leftSaberPalette, currentTime + mismatchSpeedOffset);
-    rainbowSaberColors[1] = TechnicolourController::getLerpedFromVector(rightSaberPalette, currentTime);
+    rainbowSaberColors[0] = TechnicolorController::getLerpedFromVector(leftSaberPalette, currentTime + mismatchSpeedOffset);
+    rainbowSaberColors[1] = TechnicolorController::getLerpedFromVector(rightSaberPalette, currentTime);
 }
 void GradientController::gradientTick() {
     rainbowSaberColors[0] = gradientLeftColor;
     rainbowSaberColors[1] = gradientRightColor;
 }
 void GradientController::setupWarmCold() {
-    leftSaberPalette = TechnicolourController::getWarmPalette();
-    rightSaberPalette = TechnicolourController::getColdPalette();
+    leftSaberPalette = TechnicolorController::getWarmPalette();
+    rightSaberPalette = TechnicolorController::getColdPalette();
 }
 void GradientController::randomTick() {
     h += currentTime - lastTime;
@@ -181,7 +181,7 @@ void GradientController::randomTick() {
 void GradientController::randomCycleNext() {
     randomCycleLeft[0] = randomCycleLeft[1];
     randomCycleRight[0] = randomCycleRight[1];
-    randomCycleLeft[1] = Sombrero::FastColor::HSVToRGB(TechnicolourController::randFloat(), 1.0f, 1.0f);
+    randomCycleLeft[1] = Sombrero::FastColor::HSVToRGB(TechnicolorController::randFloat(), 1.0f, 1.0f);
     if (match)
     {
         randomCycleRight[0] = randomCycleLeft[0];
@@ -189,12 +189,12 @@ void GradientController::randomCycleNext() {
     }
     else
     {
-        randomCycleRight[1] = Sombrero::FastColor::HSVToRGB(TechnicolourController::randFloat(), 1.0f, 1.0f);
+        randomCycleRight[1] = Sombrero::FastColor::HSVToRGB(TechnicolorController::randFloat(), 1.0f, 1.0f);
     }
 }
 
 Sombrero::FastColor randomColour() {
-    return Sombrero::FastColor::HSVToRGB(TechnicolourController::randFloat(), 1.0f, 1.0f);
+    return Sombrero::FastColor::HSVToRGB(TechnicolorController::randFloat(), 1.0f, 1.0f);
 }
 
 void GradientController::setupRandom() {
