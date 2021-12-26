@@ -1,9 +1,9 @@
 name: NDK build
 
 env:
-  module_id: technicolour
-  qmodName: Technicolour
-  cache-name: technicolour_cache
+  module_id: technicolor
+  qmodName: Technicolor
+  cache-name: technicolor_cache
 
 on:
   push:
