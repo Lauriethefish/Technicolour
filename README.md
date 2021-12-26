@@ -1,6 +1,6 @@
 # Technicolor
 
-Yes, with a U.
+Yes, without a U.
 
 ## Credits
 
