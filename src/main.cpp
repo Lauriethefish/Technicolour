@@ -49,7 +49,18 @@ void saveConfig() {
 
 // Called at the early stages of game loading
 extern "C" void setup(ModInfo& info) {
-    info.id = ID;
+    std::string modId = ID;
+
+    // Hehheheheheh >:D
+    
+	srand(time(0));
+	int randNo = rand() % 1;
+
+	if (randNo == 0) {
+		modId = "technicolor";
+	}
+
+    info.id = modId;
     info.version = VERSION;
     modInfo = info;
 	
