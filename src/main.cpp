@@ -20,16 +20,17 @@ int pointerToSeed(void* ptr) {
 }
 
 static ModInfo modInfo; // Stores the ID and version of our mod, and is sent to the modloader upon startup
+static ModInfo trueModInfo; // This is used to store the actual ID of the mod
 
 // Loads the config from disk using our modInfo, then returns it for use
 Configuration& getRawConfig() {
-    static Configuration config(modInfo);
+    static Configuration config(trueModInfo);
     return config;
 }
 
 // Returns a logger, useful for printing debug messages
 Logger& getLogger() {
-    static Logger* logger = new Logger(modInfo);
+    static Logger* logger = new Logger(trueModInfo);
     return *logger;
 }
 
@@ -52,7 +53,7 @@ extern "C" void setup(ModInfo& info) {
     std::string modId = ID;
 
     // Hehheheheheh >:D
-    
+
 	srand(time(0));
 	int randNo = rand() % 1;
 
@@ -63,6 +64,9 @@ extern "C" void setup(ModInfo& info) {
     info.id = modId;
     info.version = VERSION;
     modInfo = info;
+
+    trueModInfo = modInfo;
+    trueModInfo.id = ID;
 	
     getRawConfig().Load(); // Load the config file
     if(getRawConfig().config.HasMember("enabled")) {
