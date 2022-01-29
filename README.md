@@ -1,4 +1,4 @@
-# Technicolor
+# Technicolour
 
 Yes, with a U.
 
